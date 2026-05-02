@@ -17,6 +17,7 @@ import { AdminPanel } from './components/admin/AdminPanel'
 function AppContent() {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false)
   const [showAdmin, setShowAdmin] = useState(false)
+  const [mobileTab, setMobileTab] = useState('chat') // 'chat' | 'preview'
   const { user, isAdmin, logout } = useAuth()
   const {
     document,
@@ -45,7 +46,7 @@ function AppContent() {
   }
 
   return (
-    <div className="app-container" style={{
+    <div className={`app-container ${hasDocument ? `mobile-show-${mobileTab}` : 'mobile-show-chat'}`} style={{
       display: 'flex',
       flexDirection: 'column',
       height: '100vh',
@@ -53,7 +54,7 @@ function AppContent() {
       background: '#060A14',
     }}>
       {/* ═══ TOP BAR ═══ */}
-      <header style={{
+      <header className="app-header" style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -64,7 +65,7 @@ function AppContent() {
         zIndex: 50,
         flexShrink: 0,
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div className="header-left" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {/* Logo */}
           <div style={{
             width: 34,
@@ -102,7 +103,7 @@ function AppContent() {
             </svg>
             History
           </button>
-          <div style={{ marginLeft: 8 }}>
+          <div className="header-title-block" style={{ marginLeft: 8 }}>
             <h1 style={{
               fontSize: 15,
               fontWeight: 800,
@@ -124,10 +125,10 @@ function AppContent() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {/* Version badge */}
           {versionLabel && (
-            <div style={{
+            <div className="header-version-badge" style={{
               display: 'flex',
               alignItems: 'center',
               gap: 8,
@@ -150,7 +151,7 @@ function AppContent() {
                   : '0 0 8px rgba(16, 185, 129, 0.5)',
                 animation: isProcessing ? 'pulse 1.5s ease infinite' : 'none',
               }} />
-              <span style={{
+              <span className="version-label" style={{
                 fontSize: 11,
                 fontWeight: 700,
                 background: 'linear-gradient(135deg, #0EA5E9, #06B6D4)',
@@ -172,7 +173,7 @@ function AppContent() {
                 </span>
               )}
               {!isProcessing && documentVersions.length > 1 && (
-                <span style={{
+                <span className="header-version-of" style={{
                   fontSize: 10,
                   color: '#475569',
                   fontWeight: 500,
@@ -213,7 +214,7 @@ function AppContent() {
 
           {/* User & Logout */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 11, color: '#64748B', fontWeight: 500, maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <span className="header-user-email" style={{ fontSize: 11, color: '#64748B', fontWeight: 500, maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {user?.email}
             </span>
             <button
@@ -241,7 +242,7 @@ function AppContent() {
       {/* ═══ MAIN LAYOUT ═══ */}
       <HistorySidebar isOpen={isHistoryOpen} onClose={() => setIsHistoryOpen(false)} />
       
-      <div style={{
+      <div className={`app-main-layout ${hasDocument ? `mobile-show-${mobileTab}` : 'mobile-show-chat'}`} style={{
         display: 'flex',
         flex: 1,
         overflow: 'hidden',
@@ -336,6 +337,33 @@ function AppContent() {
           )}
         </div>
       </div>
+
+      {/* ═══ MOBILE BOTTOM TAB BAR ═══ */}
+      {hasDocument && (
+        <div className="mobile-tab-bar">
+          <button
+            className={`mobile-tab-btn ${mobileTab === 'chat' ? 'active' : ''}`}
+            onClick={() => setMobileTab('chat')}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+            Chat
+          </button>
+          <button
+            className={`mobile-tab-btn ${mobileTab === 'preview' ? 'active' : ''}`}
+            onClick={() => setMobileTab('preview')}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+            Preview
+          </button>
+        </div>
+      )}
 
       {/* ThemePanel — rendered OUTSIDE the right-panel so it never leaks into print */}
       {document && <ThemePanel />}
@@ -503,7 +531,7 @@ function EmptyState({ isLoading }) {
           marginTop: 10,
           lineHeight: 1.7,
         }}>
-          Enter a prompt on the left panel to generate a professional, multi-page proposal document powered by AI.
+          Enter a prompt in the chat panel to generate a professional, multi-page proposal document powered by AI.
         </p>
       </div>
 

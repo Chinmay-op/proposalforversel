@@ -111,7 +111,7 @@ export function AdminPanel({ onBack }) {
   return (
     <div style={{ minHeight: '100vh', background: '#060A14', color: '#E2E8F0', fontFamily: "'Inter', sans-serif" }}>
       {/* Header */}
-      <div style={{ padding: '16px 28px', borderBottom: '1px solid rgba(51,65,85,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(10,15,28,0.85)', backdropFilter: 'blur(16px)' }}>
+      <div className="admin-header" style={{ padding: '16px 28px', borderBottom: '1px solid rgba(51,65,85,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(10,15,28,0.85)', backdropFilter: 'blur(16px)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <button onClick={onBack} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '7px 14px', color: '#CBD5E1', fontSize: 12, fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}>
             <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
@@ -129,7 +129,7 @@ export function AdminPanel({ onBack }) {
         </button>
       </div>
 
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '28px 24px' }}>
+      <div className="admin-content" style={{ maxWidth: 960, margin: '0 auto', padding: '28px 24px' }}>
         {/* Alerts */}
         {actionError && <div style={{ marginBottom: 16, padding: '10px 16px', borderRadius: 8, background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', color: '#FCA5A5', fontSize: 13 }}>{actionError}</div>}
         {actionSuccess && <div style={{ marginBottom: 16, padding: '10px 16px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', color: '#6EE7B7', fontSize: 13 }}>{actionSuccess}</div>}
@@ -155,7 +155,7 @@ export function AdminPanel({ onBack }) {
         )}
 
         {/* Users table */}
-        <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(51,65,85,0.25)', background: 'rgba(15,23,42,0.5)' }}>
+        <div className="admin-table-wrapper" style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(51,65,85,0.25)', background: 'rgba(15,23,42,0.5)' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ background: 'rgba(30,41,59,0.5)' }}>

@@ -42,3 +42,288 @@ html, body {
 textarea:focus, input:focus, button:focus-visible {
   outline: none;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE STYLES
+   Target: screens ≤ 768px
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Mobile Header ─── */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 8px 12px !important;
+    gap: 8px !important;
+  }
+
+  .app-header .header-left {
+    gap: 8px !important;
+  }
+
+  .app-header .header-right {
+    gap: 6px !important;
+  }
+
+  /* Hide the title and subtitle on mobile */
+  .app-header .header-title-block {
+    display: none !important;
+  }
+
+  /* Hide the user email on mobile */
+  .header-user-email {
+    display: none !important;
+  }
+
+  /* Smaller version badge */
+  .header-version-badge {
+    padding: 3px 8px !important;
+  }
+
+  .header-version-badge .version-label {
+    font-size: 10px !important;
+  }
+
+  /* Hide version "of N" text on mobile */
+  .header-version-of {
+    display: none !important;
+  }
+
+  /* Compact buttons */
+  .header-admin-btn span {
+    display: none;
+  }
+
+  /* Export button — icon only on mobile */
+  .export-button span {
+    display: none !important;
+  }
+
+  .export-button {
+    padding: 8px 10px !important;
+  }
+}
+
+/* ─── Main Layout: Side-by-side → Tabbed on Mobile ─── */
+@media (max-width: 768px) {
+  .app-main-layout {
+    flex-direction: column !important;
+    position: relative !important;
+  }
+
+  .left-panel {
+    width: 100% !important;
+    min-width: unset !important;
+    max-width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(51, 65, 85, 0.2) !important;
+    padding: 12px 14px !important;
+    flex: 1 !important;
+  }
+
+  .right-panel {
+    width: 100% !important;
+    flex: 1 !important;
+    padding: 16px 8px !important;
+  }
+
+  /* Tab-based show/hide */
+  .mobile-show-chat .left-panel {
+    display: flex !important;
+  }
+  .mobile-show-chat .right-panel {
+    display: none !important;
+  }
+
+  .mobile-show-preview .left-panel {
+    display: none !important;
+  }
+  .mobile-show-preview .right-panel {
+    display: block !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Hide keyboard shortcut hints on mobile (touch devices) */
+  .prompt-input kbd,
+  .prompt-input p:last-child {
+    display: none !important;
+  }
+
+  /* Smooth scrolling on mobile */
+  .left-panel,
+  .right-panel {
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+/* ─── Mobile Bottom Tab Bar ─── */
+.mobile-tab-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-tab-bar {
+    display: flex !important;
+    position: relative;
+    z-index: 40;
+    background: rgba(10, 15, 28, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(51, 65, 85, 0.3);
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .mobile-tab-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 10px 0;
+    border: none;
+    background: transparent;
+    color: #64748B;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    font-family: inherit;
+    letter-spacing: 0.02em;
+  }
+
+  .mobile-tab-btn.active {
+    color: #38BDF8;
+  }
+
+  .mobile-tab-btn.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: linear-gradient(90deg, #0EA5E9, #06B6D4);
+    border-radius: 0 0 2px 2px;
+  }
+
+  .mobile-tab-btn svg {
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-tab-btn.active svg {
+    transform: scale(1.1);
+  }
+}
+
+/* ─── Theme Panel on Mobile ─── */
+@media (max-width: 768px) {
+  .no-print-theme-panel {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 60px !important;
+    right: 8px !important;
+    left: 8px !important;
+    width: auto !important;
+    max-height: 55vh !important;
+    z-index: 1001 !important;
+  }
+}
+
+/* ─── History Sidebar on Mobile ─── */
+@media (max-width: 768px) {
+  .history-drawer {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* ─── Proposal Document — Scale on Mobile ─── */
+@media (max-width: 768px) {
+  .page-wrapper {
+    width: 100% !important;
+    min-height: auto !important;
+    max-height: none !important;
+    padding: 16px !important;
+    margin-bottom: 16px !important;
+    border-radius: 12px !important;
+    transform: none !important;
+  }
+
+  /* Override any fixed widths on proposal content */
+  .proposal-document-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* ─── Empty State on Mobile ─── */
+@media (max-width: 768px) {
+  .empty-state-container {
+    padding: 24px 16px !important;
+  }
+
+  .empty-state-container h2 {
+    font-size: 18px !important;
+  }
+
+  .empty-state-container p {
+    font-size: 13px !important;
+  }
+}
+
+/* ─── Admin Panel on Mobile ─── */
+@media (max-width: 768px) {
+  .admin-header {
+    padding: 12px 14px !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+
+  .admin-header h1 {
+    font-size: 15px !important;
+  }
+
+  .admin-content {
+    padding: 16px 12px !important;
+  }
+
+  .admin-table-wrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .admin-table-wrapper table {
+    min-width: 600px !important;
+  }
+}
+
+/* ─── Chat Thread mobile tweaks ─── */
+@media (max-width: 768px) {
+  .chat-thread {
+    padding-bottom: 4px !important;
+  }
+}
+
+/* ─── Auth Page — already responsive, minor polish ─── */
+@media (max-width: 400px) {
+  .auth-card {
+    padding: 24px 18px !important;
+  }
+}
+
+/* ─── Disable hover effects on touch devices ─── */
+@media (hover: none) {
+  button:hover {
+    transform: none !important;
+  }
+}
+
+/* ─── Safe area insets for modern phones ─── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-tab-bar {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

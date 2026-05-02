@@ -14,7 +14,8 @@
   .refine-page-input,
   .refine-overlay,
   .logo-resize-controls,
-  .icon-picker-popover {
+  .icon-picker-popover,
+  .mobile-tab-bar {
     display: none !important;
   }
 
