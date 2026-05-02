@@ -1,0 +1,135 @@
+@media print {
+  /* ═══ HIDE ALL UI SHELL AND INTERACTIVE ELEMENTS ═══ */
+  header,
+  .ui-shell,
+  .left-panel,
+  .thinking-panel,
+  .prompt-input,
+  .export-button,
+  .top-bar,
+  .empty-state,
+  .no-print,
+  .no-print-theme-panel,
+  .refine-page-btn,
+  .refine-page-input,
+  .refine-overlay,
+  .logo-resize-controls,
+  .icon-picker-popover {
+    display: none !important;
+  }
+
+  /* ═══ PAGE SIZING ═══ */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  /* ═══ RESET HTML / BODY ═══ */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    overflow: visible !important;
+    height: auto !important;
+    width: auto !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  #root {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* ═══ APP CONTAINER — flatten to vertical flow ═══ */
+  .app-container {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  /* ═══ RIGHT PANEL — becomes the sole visible panel ═══ */
+  .right-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: white !important;
+    position: static !important;
+  }
+
+  /* ═══ PAGE WRAPPER — strict A4 page breaks ═══ */
+  .page-wrapper {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    max-height: 297mm !important;
+    page-break-after: always !important;
+    page-break-inside: avoid !important;
+    overflow: hidden !important;
+    padding: 14mm 16mm 18mm 16mm !important;
+    box-sizing: border-box !important;
+    background: white !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+
+  /* Avoid blank trailing page — last page should not force a break after */
+  .page-wrapper:last-child {
+    page-break-after: auto !important;
+  }
+
+  /* ═══ PAGE HEADER / FOOTER — always visible ═══ */
+  .page-header,
+  .page-footer {
+    display: flex !important;
+  }
+
+  /* ═══ FORCE COLOR PRINTING ═══ */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ═══ PREVENT HEADING ORPHANS ═══ */
+  h1, h2, h3 {
+    page-break-after: avoid !important;
+  }
+
+  /* ═══ IMAGE PLACEHOLDER FALLBACK ═══ */
+  .image-placeholder:not(.has-image) {
+    background: #f0f0f0 !important;
+    border: 1px solid #ccc !important;
+  }
+
+  /* ═══ ENSURE BACKGROUNDS / GRADIENTS PRINT ═══ */
+  [style*="background"],
+  [style*="backdrop-filter"],
+  [style*="linear-gradient"],
+  [style*="radial-gradient"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ═══ ICON PICKER — hide popover, neutralize triggers ═══ */
+  .icon-replaceable-trigger {
+    box-shadow: none !important;
+    cursor: default !important;
+    background: transparent !important;
+  }
+
+  /* ═══ LOGO UPLOAD — neutralize hover cues ═══ */
+  .logo-upload-area {
+    cursor: default !important;
+    border: none !important;
+  }
+
+  /* ═══ HISTORY SIDEBAR ═══ */
+  .history-sidebar {
+    display: none !important;
+  }
+}

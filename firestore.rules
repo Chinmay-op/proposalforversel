@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── User Profile ─────────────────────────────────────────────
+    // Users can read their own profile.
+    // Admins can read/write ANY user profile (for admin panel).
+    match /users/{userId} {
+      allow read: if request.auth != null && (
+        request.auth.uid == userId ||
+        isAdmin(request.auth.uid)
+      );
+      allow write: if request.auth != null && (
+        request.auth.uid == userId ||
+        isAdmin(request.auth.uid)
+      );
+    }
+
+    // ─── Sessions (per-user) ──────────────────────────────────────
+    // Users can only read/write their own sessions.
+    match /users/{userId}/sessions/{sessionId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ─── Session Data (per-user, heavy payload) ──────────────────
+    // Stores the full document/plan/version JSON for each session.
+    match /users/{userId}/sessionData/{sessionId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ─── Admin Helper Function ────────────────────────────────────
+    function isAdmin(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data.isAdmin == true;
+    }
+  }
+}
