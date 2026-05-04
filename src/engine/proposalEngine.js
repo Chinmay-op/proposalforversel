@@ -365,6 +365,18 @@ Please provide the document as a JSON object with this structure:
 //  JSON EXTRACTION & THOUGHT PARSING
 // ─────────────────────────────────────────────────────────────────────
 
+import { API_KEYS } from '../config/apiKeys'
+
+// ─────────────────────────────────────────────────────────────────────
+//  AZURE OPENAI CONFIGURATION (gpt-5-chat)
+// ─────────────────────────────────────────────────────────────────────
+
+const AI_CONFIG = {
+  endpoint: "https://coder-resource.services.ai.azure.com/openai/v1/chat/completions",
+  model: "gpt-5-chat",
+  apiKey: API_KEYS.AZURE
+};
+
 function extractJSON(text) {
   let clean = text.replace(/```json[\s\S]*?```/g, m => m.slice(7, -3)).replace(/```/g, '').trim()
   const jsonStart = clean.indexOf('{')
@@ -412,15 +424,7 @@ function extractThoughts(text) {
     .map(l => l.trim().replace('THOUGHT:', '').trim())
 }
 
-// ─────────────────────────────────────────────────────────────────────
-//  AZURE OPENAI CONFIGURATION (gpt-5-chat)
-// ─────────────────────────────────────────────────────────────────────
 
-const AI_CONFIG = {
-  endpoint: "https://coder-resource.services.ai.azure.com/openai/v1/chat/completions",
-  model: "gpt-5-chat",
-  apiKey: import.meta.env.VITE_AZURE_API_KEY
-};
 
 
 

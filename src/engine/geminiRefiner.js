@@ -2,12 +2,13 @@
 //  GEMINI REFINER — Pre-processing Engine for Prompt Refinement
 // ═══════════════════════════════════════════════════════════════════════
 
+import { API_KEYS } from '../config/apiKeys';
+ 
 export async function refinePrompt(idea, prd) {
-  // First, get the API key from environment variables
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  const apiKey = API_KEYS.GEMINI;
   
   if (!apiKey) {
-    throw new Error('VITE_GEMINI_API_KEY is not defined in your .env file.');
+    throw new Error('VITE_GEMINI_API_KEY is missing. If you are on Vercel, please add it to Environment Variables in your Project Settings and click "Redeploy".');
   }
 
   const systemInstruction = `Act as an 'Elite Business Analyst and Technical Pre-Sales Architect' for GRITSAMA TECHNOLOGIES. Your singular purpose is to transform vague, incomplete client requirements into hyper-detailed, structured AI prompts that will be fed into our proprietary AI Proposal Generator to produce stunning, multi-page, print-ready technical proposals.
