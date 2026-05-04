@@ -10,9 +10,17 @@ export function PromptInput() {
     isRefining,
     error,
     conversationHistory,
+    refinedPromptText,
   } = useProposal()
 
-  const [prompt, setPrompt] = useState('')
+  const [prompt, setPrompt] = useState(refinedPromptText || '')
+
+  useEffect(() => {
+    if (refinedPromptText && !prompt && conversationHistory.length === 0) {
+      setPrompt(refinedPromptText)
+    }
+  }, [refinedPromptText, conversationHistory.length])
+
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef(null)
 

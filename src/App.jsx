@@ -12,6 +12,7 @@ import { ThemePanel } from './components/ui/ThemePanel'
 import { ExportButton } from './components/ui/ExportButton'
 import { HistorySidebar } from './components/ui/HistorySidebar'
 import { AuthPage } from './components/ui/AuthPage'
+import { GemPromptPanel } from './components/ui/GemPromptPanel'
 import { AdminPanel } from './components/admin/AdminPanel'
 
 function AppContent() {
@@ -27,6 +28,7 @@ function AppContent() {
     documentVersions,
     registerDocumentReadyCallback,
     conversationHistory,
+    hasPassedGemPanel,
   } = useProposal()
   const { generatePrompts } = useImagePrompts()
 
@@ -43,6 +45,11 @@ function AppContent() {
 
   if (showAdmin && isAdmin) {
     return <AdminPanel onBack={() => setShowAdmin(false)} />
+  }
+
+  // Show the Gemini Refinement Panel before the main UI for new proposals
+  if (!hasPassedGemPanel && !document && conversationHistory.length === 0) {
+    return <GemPromptPanel />
   }
 
   return (

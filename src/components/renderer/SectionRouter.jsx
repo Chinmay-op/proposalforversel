@@ -11,22 +11,8 @@ export function SectionRouter({ section }) {
 
   if (!Component) {
     if (process.env.NODE_ENV === 'development') {
-      // Visible warning in dev mode
-      return (
-        <div style={{
-          padding: 12,
-          background: '#FEF2F2',
-          border: '1px dashed #EF4444',
-          borderRadius: 8,
-          fontSize: 12,
-          color: '#DC2626',
-          fontFamily: 'monospace',
-        }}>
-          ⚠ Unknown component: "{componentType}"
-        </div>
-      )
+      console.warn(`[SectionRouter] Unknown componentType: "${componentType}" — skipping`)
     }
-    console.warn(`[SectionRouter] Unknown componentType: "${componentType}" — skipping`)
     return null
   }
 

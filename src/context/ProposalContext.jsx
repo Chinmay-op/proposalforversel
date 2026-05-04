@@ -19,6 +19,10 @@ export function ProposalProvider({ children }) {
   const [thoughts, setThoughts] = useState([])
   const [refiningPages, setRefiningPages] = useState({})
 
+  // ─── Gem Panel Pre-processing State ───────────────────────────
+  const [hasPassedGemPanel, setHasPassedGemPanel] = useState(false)
+  const [refinedPromptText, setRefinedPromptText] = useState('')
+
   // ─── Conversation & Version History ─────────────────────────────
   const [conversationHistory, setConversationHistory] = useState([])
   const [documentVersions, setDocumentVersions] = useState([])
@@ -355,6 +359,8 @@ export function ProposalProvider({ children }) {
     setIsRefining(false)
     setRefiningPages({})
     setCurrentSessionId(null)
+    setHasPassedGemPanel(false)
+    setRefinedPromptText('')
   }, [])
 
   // ─── Per-page refinement (existing) ────────────────────────────
@@ -443,6 +449,10 @@ export function ProposalProvider({ children }) {
       activeVersionIndex,
       sessionsList,
       currentSessionId,
+      hasPassedGemPanel,
+      setHasPassedGemPanel,
+      refinedPromptText,
+      setRefinedPromptText,
       loadSession,
       deleteSession,
       submitPrompt,
