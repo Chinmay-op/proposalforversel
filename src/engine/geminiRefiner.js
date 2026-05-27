@@ -3,10 +3,10 @@
 // ═══════════════════════════════════════════════════════════════════════
 
 import { API_KEYS } from '../config/apiKeys';
- 
+
 export async function refinePrompt(idea, prd) {
   const apiKey = API_KEYS.GEMINI;
-  
+
   if (!apiKey) {
     throw new Error('VITE_GEMINI_API_KEY is missing. If you are on Vercel, please add it to Environment Variables in your Project Settings and click "Redeploy".');
   }
@@ -101,28 +101,28 @@ ${prd || 'None provided'}`;
       if (!response.ok) {
         const errorText = await response.text();
         console.warn(`[Gemini Refiner] API Error with model ${model}:`, errorText);
-        
+
         if (response.status === 503 || response.status === 429) {
-          lastError = new Error(response.status === 429 
-            ? 'Rate Limit Exceeded (429)' 
+          lastError = new Error(response.status === 429
+            ? 'Rate Limit Exceeded (429)'
             : 'Service Unavailable (503)');
-          
+
           // Wait 2 seconds before trying the next model to let rate limits cool down
           await new Promise(resolve => setTimeout(resolve, 2000));
-          continue; 
+          continue;
         }
         throw new Error(`Gemini API Error: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
-      
+
       const candidate = data.candidates?.[0];
       if (!candidate || !candidate.content || !candidate.content.parts || candidate.content.parts.length === 0) {
         throw new Error('Invalid response structure from Gemini API.');
       }
 
       let refinedText = candidate.content.parts[0].text;
-      
+
       // Clean up potential markdown code blocks if the model wrapped it
       refinedText = refinedText.replace(/^```[a-z]*\n/g, '').replace(/```$/g, '').trim();
 
@@ -141,6 +141,6 @@ ${prd || 'None provided'}`;
   if (lastError && lastError.message.includes('429')) {
     throw new Error('API Rate Limit Exceeded (429). The Gemini free tier limits requests per minute. Please wait about 60 seconds and try again!');
   }
-  
+
   throw lastError || new Error('All Gemini models are currently experiencing capacity issues (503 Service Unavailable). Please try again in a few minutes.');
 }
